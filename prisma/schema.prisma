@@ -8,15 +8,15 @@ datasource db {
 }
 
 model maktab {
-  id                         String  @id @default(auto()) @map("_id") @db.ObjectId
+  id                         String @id @default(auto()) @map("_id") @db.ObjectId
   contingentAddress          String
   contingentCoordinatorName  String
-  contingentCoordinatorPhone String?
-  contingentCount            Int?
-  maktabAddress              String?
-  maktabCapacity             Int?
-  maktabOwnerName            String?
-  maktabOwnerPhone           Int?
+  contingentCoordinatorPhone String
+  contingentCount            String
+  maktabAddress              String
+  maktabCapacity             String
+  maktabOwnerName            String
+  maktabOwnerPhone           String
   sector                     String
 
   @@index([contingentCoordinatorName, contingentAddress, contingentCoordinatorPhone])
