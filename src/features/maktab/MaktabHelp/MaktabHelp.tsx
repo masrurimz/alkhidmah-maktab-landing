@@ -38,9 +38,9 @@ function MaktabHelp() {
     <div
       id="modal"
       aria-hidden="true"
-      className={`h-modal fixed top-0 left-0 right-0 z-50 w-full overflow-y-auto ${
+      className={`h-modal fixed top-0 left-0 right-0 z-50 w-full overflow-y-auto overflow-x-hidden p-4 md:inset-0 md:h-full ${
         !isVisible ? "hidden" : ""
-      } overflow-x-hidden p-4 md:inset-0 md:h-full`}
+      }`}
     >
       <div className="relative h-full w-full max-w-md md:h-auto">
         {/* <!-- Modal content --> */}

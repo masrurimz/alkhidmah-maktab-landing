@@ -11,11 +11,13 @@ function MaktabListDatum(props: MaktabListDatumProps) {
 
   return (
     <div className="flex flex-row gap-1">
-      <p className="text-[10px] font-medium text-gray-400">{label}</p>
-      <p className="line inline text-ellipsis text-[10px] font-medium">
-        {value}{" "}
-        <p className="inline text-gray-400">
-          {extraValue ? `(${extraValue})` : ""}
+      <p className="text-[10px] font-medium text-gray-400">
+        {label}{" "}
+        <p className="line inline text-ellipsis text-xs font-medium text-gray-700">
+          {value}{" "}
+          <p className="inline text-gray-400">
+            {extraValue ? `(${extraValue})` : ""}
+          </p>
         </p>
       </p>
     </div>

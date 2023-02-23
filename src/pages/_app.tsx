@@ -8,8 +8,8 @@ import MaktabHelp from "~/features/maktab/MaktabHelp/MaktabHelp";
 const MyApp: AppType = ({ Component, pageProps }) => {
   return (
     <>
-      <MaktabHelp />
       <Component {...pageProps} />
+      <MaktabHelp />
     </>
   );
 };
