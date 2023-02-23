@@ -19,7 +19,10 @@ function MaktabList() {
   };
 
   const list = api.maktab.findByContingent.useQuery(
-    typeof q === "string" ? q : ""
+    typeof q === "string" ? q : "",
+    {
+      enabled: Boolean(q && query),
+    }
   );
 
   return (
@@ -32,6 +35,16 @@ function MaktabList() {
             value={query}
           />
         </form>
+        {!query?.length ? (
+          <p className="pt-2 text-sm text-red-400">
+            Silahkan memasukkan kata kunci pencarian
+          </p>
+        ) : null}
+        {list.isLoading ? (
+          <p className="py-10 text-center text-sm text-gray-400">
+            Memuat, mohon tunggu...
+          </p>
+        ) : null}
       </div>
       <div className="px-5">
         {list.data?.map((m) => (
@@ -44,6 +57,11 @@ function MaktabList() {
             maktabSector={m.sector}
           />
         ))}
+        {!list.data?.length && !list.isLoading && query?.length ? (
+          <p className="py-10 text-center text-sm text-gray-400">
+            Hasil pencarian dengan kata kunci <b>&quot;{query}&quot;</b> kosong
+          </p>
+        ) : null}
       </div>
     </div>
   );

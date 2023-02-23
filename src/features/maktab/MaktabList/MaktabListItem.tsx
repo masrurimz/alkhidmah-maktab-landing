@@ -23,7 +23,7 @@ function MaktabListItem(props: MaktabListItemProps) {
       <div className="flex flex-1 flex-col ">
         <MaktabListDatum label="Asal Rombongan:" value={contingentAddress} />
         <p className="inline text-sm font-medium">
-          <p className="inline text-gray-400">Koor: </p>
+          <p className="inline text-xs text-gray-400">Koor: </p>
           {contingentCoordinator}
         </p>
         <MaktabListDatum label="Tuan Rumah:" value={maktabOwnerName} />
