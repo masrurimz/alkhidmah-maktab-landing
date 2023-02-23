@@ -4,7 +4,9 @@ import MaktabListDatum from "./MaktabListDatum";
 interface MaktabListItemProps {
   contingentAddress: string;
   contingentCoordinator: string;
+  contingentCoordinatorPhone: string;
   maktabOwnerName: string;
+  maktabOwnerPhone: string;
   maktabAddress: string;
   maktabSector: string;
 }
@@ -13,8 +15,10 @@ function MaktabListItem(props: MaktabListItemProps) {
   const {
     contingentAddress,
     contingentCoordinator,
+    contingentCoordinatorPhone,
     maktabAddress,
     maktabOwnerName,
+    maktabOwnerPhone,
     maktabSector,
   } = props;
 
@@ -22,11 +26,13 @@ function MaktabListItem(props: MaktabListItemProps) {
     <div className="flex items-center border-b py-2">
       <div className="flex flex-1 flex-col ">
         <MaktabListDatum label="Asal Rombongan:" value={contingentAddress} />
-        <p className="inline text-sm font-medium">
-          <p className="inline text-xs text-gray-400">Koor: </p>
-          {contingentCoordinator}
-        </p>
+        <MaktabListDatum label="Koor:" value={contingentCoordinator} />
+        <MaktabListDatum
+          label="Kontak Koor:"
+          value={contingentCoordinatorPhone}
+        />
         <MaktabListDatum label="Tuan Rumah:" value={maktabOwnerName} />
+        <MaktabListDatum label="Kontak Tuan Rumah:" value={maktabOwnerPhone} />
         <MaktabListDatum label="Alamat Maktab:" value={maktabAddress} />
       </div>
       <div className="flex flex-col items-center justify-center rounded-2xl bg-blue-50 py-2 px-3">

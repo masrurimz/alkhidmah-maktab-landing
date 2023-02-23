@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import React, { useState } from "react";
+import { useState } from "react";
 import InputSearchBox from "~/common/components/InputSearchBox";
 import { api } from "~/utils/api";
 import MaktabListItem from "./MaktabListItem";
@@ -55,6 +55,8 @@ function MaktabList() {
             maktabAddress={m.maktabAddress}
             maktabOwnerName={m.maktabOwnerName}
             maktabSector={m.sector}
+            contingentCoordinatorPhone={m.contingentCoordinatorPhone}
+            maktabOwnerPhone={m.maktabOwnerPhone}
           />
         ))}
         {!list.data?.length && !list.isLoading && query?.length ? (
