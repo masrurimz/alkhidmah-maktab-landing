@@ -1,5 +1,6 @@
 import { useRouter } from "next/router";
 import React, { useState } from "react";
+import InputSearchBox from "~/common/components/InputSearchBox";
 
 function Landing() {
   const [query, setQuery] = useState("");
@@ -21,18 +22,11 @@ function Landing() {
         </span>
       </div>
       <div className="flex flex-col gap-5">
-        <input
-          className="rounded-xl border px-5 py-3"
+        <InputSearchBox
+          onChangeText={setQuery}
+          onPressButton={openSearchPage}
           value={query}
-          onChange={(e) => setQuery(e.target.value)}
-          placeholder="Kota, kecamatan, atau koordinator"
         />
-        <button
-          className="rounded-xl bg-blue-600 px-4 py-2 text-base font-bold text-white"
-          onClick={openSearchPage}
-        >
-          Cari
-        </button>
         <button className="text-base font-bold text-blue-600 hover:underline">
           Bantuan
         </button>
