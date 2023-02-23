@@ -1,6 +1,7 @@
 import { useRouter } from "next/router";
 import React, { useState } from "react";
 import InputSearchBox from "~/common/components/InputSearchBox";
+import { useMaktabHelpStore } from "../maktab/MaktabHelp/maktabHelp.store";
 
 function Landing() {
   const [query, setQuery] = useState("");
@@ -9,6 +10,8 @@ function Landing() {
   const openSearchPage = () => {
     void router.push(`/search?q=${query}`);
   };
+
+  const openHelp = useMaktabHelpStore((state) => state.showModal);
 
   return (
     <div className="flex h-screen flex-1 flex-col justify-center gap-10 p-5">
@@ -27,7 +30,10 @@ function Landing() {
           onPressButton={openSearchPage}
           value={query}
         />
-        <button className="text-base font-bold text-blue-600 hover:underline">
+        <button
+          className="text-base font-bold text-blue-600 hover:underline"
+          onClick={() => openHelp()}
+        >
           Bantuan
         </button>
       </div>
