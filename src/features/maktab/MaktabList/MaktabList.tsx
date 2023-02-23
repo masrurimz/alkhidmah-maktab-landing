@@ -1,8 +1,10 @@
+import Image from "next/image";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { FaWhatsapp } from "react-icons/fa";
 import InputSearchBox from "~/common/components/InputSearchBox";
 import { api } from "~/utils/api";
+import Logo from "../../../assets/images/logo.webp";
 import { useMaktabHelpStore } from "../MaktabHelp/maktabHelp.store";
 import MaktabListItem from "./MaktabListItem";
 
@@ -46,7 +48,18 @@ function MaktabList() {
           <FaWhatsapp size={32} />
         </button>
       </div>
-      <div className="z-1 sticky top-0 bg-blue-50 p-5 shadow-sm">
+      <div className="z-1 sticky top-0 bg-blue-50 px-5 py-3 shadow-sm">
+        <div className="flex flex-row items-center gap-2 pb-2">
+          <div className="relative aspect-square h-8 w-8">
+            <Image
+              src={Logo}
+              alt="Picture of the author"
+              fill
+              className="rounded-full" // just an example
+            />
+          </div>
+          <p className="font-medium">Maktab Pusat HAF 2023</p>
+        </div>
         <form>
           <InputSearchBox
             onChangeText={setQuery}
