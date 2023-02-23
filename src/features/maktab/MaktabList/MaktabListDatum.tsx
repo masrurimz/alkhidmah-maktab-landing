@@ -10,8 +10,10 @@ function MaktabListDatum(props: MaktabListDatumProps) {
 
   return (
     <div className="flex flex-row gap-1">
-      <div className="text-[10px] font-medium text-gray-400">{label}</div>
-      <div className="text-xs">{value}</div>
+      <p className="text-[10px] font-medium text-gray-400">{label}</p>
+      <p className="line inline text-ellipsis text-[10px] font-medium">
+        {value}
+      </p>
     </div>
   );
 }

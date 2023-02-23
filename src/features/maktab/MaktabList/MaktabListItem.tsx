@@ -22,13 +22,16 @@ function MaktabListItem(props: MaktabListItemProps) {
     <div className="flex items-center border-b py-2">
       <div className="flex flex-1 flex-col ">
         <MaktabListDatum label="Asal Rombongan:" value={contingentAddress} />
-        <span>{contingentCoordinator}</span>
+        <p className="inline text-sm font-medium">
+          <p className="inline text-gray-400">Koor: </p>
+          {contingentCoordinator}
+        </p>
         <MaktabListDatum label="Tuan Rumah:" value={maktabOwnerName} />
         <MaktabListDatum label="Alamat Maktab:" value={maktabAddress} />
       </div>
-      <div className="flex flex-col items-center justify-center rounded-2xl bg-blue-100 py-2 px-3">
-        <div className="text-[10px] font-medium text-gray-700">Sektor</div>
-        <div className="text-xl font-bold">{maktabSector}</div>
+      <div className="flex flex-col items-center justify-center rounded-2xl bg-blue-50 py-2 px-3">
+        <p className="text-[10px] font-medium text-gray-700">Sektor</p>
+        <p className="text-xl font-bold">{maktabSector}</p>
       </div>
     </div>
   );
