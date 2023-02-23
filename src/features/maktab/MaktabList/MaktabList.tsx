@@ -1,5 +1,6 @@
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+import { FaWhatsapp } from "react-icons/fa";
 import InputSearchBox from "~/common/components/InputSearchBox";
 import { api } from "~/utils/api";
 import { useMaktabHelpStore } from "../MaktabHelp/maktabHelp.store";
@@ -39,9 +40,10 @@ function MaktabList() {
         <button
           onClick={() => showHelp()}
           type="button"
-          className="inline-flex items-center rounded-lg bg-blue-700 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+          className="mr-2 mb-2 flex flex-row items-center gap-2 rounded-full bg-green-700 px-5 py-2.5 text-center text-base text-white hover:bg-green-800 focus:outline-none focus:ring-4 focus:ring-green-300 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
         >
-          Bantuan
+          Hubungi Ketua Sektor
+          <FaWhatsapp size={32} />
         </button>
       </div>
       <div className="z-1 sticky top-0 bg-blue-50 p-5 shadow-sm">
@@ -50,16 +52,12 @@ function MaktabList() {
             onChangeText={setQuery}
             onPressButton={updateSearchPage}
             value={query}
+            isLoading={list.isLoading}
           />
         </form>
         {!query?.length ? (
           <p className="pt-2 text-sm text-red-400">
             Silahkan memasukkan kata kunci pencarian
-          </p>
-        ) : null}
-        {list.isLoading ? (
-          <p className="py-10 text-center text-sm text-gray-400">
-            Memuat, mohon tunggu...
           </p>
         ) : null}
       </div>
