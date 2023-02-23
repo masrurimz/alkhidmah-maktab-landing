@@ -35,7 +35,7 @@ function MaktabList() {
 
   return (
     <>
-      <div className="absolute bottom-5 right-5">
+      <div className="fixed bottom-5 right-5">
         <button
           onClick={() => showHelp()}
           type="button"
