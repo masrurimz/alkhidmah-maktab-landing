@@ -16,7 +16,7 @@ function MaktabMaps() {
         !isVisible ? "hidden" : ""
       }`}
     >
-      <div className="relative w-full rounded-lg bg-white shadow dark:bg-gray-700">
+      <div className="relative w-full rounded-lg bg-white shadow dark:bg-gray-700 md:mt-20">
         <button
           type="button"
           className="absolute top-3 right-2.5 ml-auto inline-flex items-center rounded-lg bg-transparent p-1.5 text-sm text-gray-400 hover:bg-gray-200 hover:text-gray-900 dark:hover:bg-gray-800 dark:hover:text-white"

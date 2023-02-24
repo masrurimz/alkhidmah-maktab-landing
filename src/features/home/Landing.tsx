@@ -19,12 +19,13 @@ function Landing() {
 
   return (
     <div className="flex h-screen flex-1 flex-col justify-center gap-10 p-5">
-      <div className="relative aspect-square h-32 w-32 self-center md:h-44 md:w-44">
+      <div className="relative aspect-square self-center md:h-44 md:w-44">
         <Image
           src={Logo}
           alt="Picture of the author"
           fill
-          className="rounded-full" // just an example
+          className="rounded-full"
+          sizes="32"
         />
       </div>
       <div className="flex flex-col gap-5">
