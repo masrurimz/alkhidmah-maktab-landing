@@ -85,7 +85,7 @@ function MaktabList() {
         </div>
         <form>
           <InputSearchBox
-            onChangeText={setQuery}
+            onChangeText={(t) => setQuery(t.trim())}
             onPressButton={() => updateSearchPage(query)}
             value={query}
             isLoading={list.isLoading}
