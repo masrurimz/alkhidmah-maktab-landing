@@ -22,7 +22,7 @@ function MaktabList() {
       void router.push({
         pathname: "/search",
         query: {
-          q,
+          q: q.trim(),
         },
       });
     },
@@ -85,7 +85,7 @@ function MaktabList() {
         </div>
         <form>
           <InputSearchBox
-            onChangeText={(t) => setQuery(t.trim())}
+            onChangeText={setQuery}
             onPressButton={() => updateSearchPage(query)}
             value={query}
             isLoading={list.isLoading}
