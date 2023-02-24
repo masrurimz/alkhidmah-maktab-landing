@@ -8,8 +8,6 @@ function MaktabMaps() {
   const isVisible = useMaktabMapsStore((state) => state.isModalVisible);
   const hideModal = useMaktabMapsStore((state) => state.hideModal);
 
-  console.log(MaktabMap.src);
-
   return (
     <div
       id="modal"
