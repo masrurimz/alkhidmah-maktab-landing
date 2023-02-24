@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import { useRouter } from "next/router";
 import { useCallback, useEffect, useState } from "react";
 import { FaWhatsapp, FaMap } from "react-icons/fa";
@@ -66,15 +67,20 @@ function MaktabList() {
       </div>
       <div className="z-1 sticky top-0 bg-blue-50 px-5 py-3 shadow-sm">
         <div className="flex flex-row items-center gap-2 pb-2">
-          <div className="relative aspect-square h-8 w-8">
+          <Link
+            href="/"
+            className="flex flex-1 flex-row items-center gap-1"
+            role="button"
+            aria-pressed="false"
+          >
             <Image
               src={Logo}
               alt="Picture of the author"
-              fill
-              className="rounded-full" // just an example
+              width="32"
+              height="32"
             />
-          </div>
-          <p className="flex flex-1 font-medium">Maktab Pusat HAF 2023</p>
+            <p className=" font-medium">Maktab Pusat HAF 2023</p>
+          </Link>
           <button
             className="flex items-center gap-2 rounded-full border border-blue-300 bg-blue-100 py-1 px-2 text-xs font-bold text-blue-700"
             onClick={() => openMaps()}
