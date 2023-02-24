@@ -26,7 +26,8 @@ function MaktabList() {
         },
       });
     },
-    [router]
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    []
   );
 
   const list = api.maktab.findByContingent.useQuery(
