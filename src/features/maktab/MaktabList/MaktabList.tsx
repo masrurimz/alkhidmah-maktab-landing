@@ -1,11 +1,12 @@
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import { FaWhatsapp } from "react-icons/fa";
+import { FaWhatsapp, FaMap } from "react-icons/fa";
 import InputSearchBox from "~/common/components/InputSearchBox";
 import { api } from "~/utils/api";
 import Logo from "../../../assets/images/logo.webp";
 import { useMaktabHelpStore } from "../MaktabHelp/maktabHelp.store";
+import { useMaktabMapsStore } from "../MaktabMaps/maktabMaps.store";
 import MaktabListItem from "./MaktabListItem";
 
 function MaktabList() {
@@ -13,6 +14,7 @@ function MaktabList() {
   const { q } = router.query;
 
   const showHelp = useMaktabHelpStore((state) => state.showModal);
+  const openMaps = useMaktabMapsStore((state) => state.showModal);
 
   const [query, setQuery] = useState(typeof q === "string" ? q : q?.[0] ?? "");
   const updateSearchPage = () => {
@@ -58,7 +60,14 @@ function MaktabList() {
               className="rounded-full" // just an example
             />
           </div>
-          <p className="font-medium">Maktab Pusat HAF 2023</p>
+          <p className="flex flex-1 font-medium">Maktab Pusat HAF 2023</p>
+          <button
+            className="flex items-center gap-2 rounded-full border border-blue-300 bg-blue-100 py-1 px-2 text-xs font-bold text-blue-700"
+            onClick={() => openMaps()}
+          >
+            Peta
+            <FaMap size={20} />
+          </button>
         </div>
         <form>
           <InputSearchBox
