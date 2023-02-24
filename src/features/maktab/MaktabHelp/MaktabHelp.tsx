@@ -38,11 +38,15 @@ function MaktabHelp() {
     <div
       id="modal"
       aria-hidden="true"
-      className={`h-modal fixed top-0 left-0 right-0 z-50 flex h-full w-full flex-1 items-center justify-center overflow-y-auto overflow-x-hidden bg-gray-400/50 p-4 md:inset-0 ${
+      className={`fixed top-0 left-0 right-0 z-50 flex h-full w-full flex-1 items-center justify-center overflow-y-auto overflow-x-hidden bg-gray-400/50 p-4 md:inset-0 ${
         !isVisible ? "hidden" : ""
       }`}
+      onClick={(e) => {
+        e.stopPropagation();
+        hideModal();
+      }}
     >
-      <div className="relative h-full w-full max-w-md md:h-auto">
+      <div className="relative w-full max-w-md md:h-auto">
         {/* <!-- Modal content --> */}
         <div className="relative rounded-lg bg-white shadow dark:bg-gray-700">
           <button
