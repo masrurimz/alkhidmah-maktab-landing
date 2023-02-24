@@ -44,7 +44,7 @@ function MaktabList() {
   useEffect(() => {
     const timer = setTimeout(() => {
       updateSearchPage(query);
-    }, 500);
+    }, 800);
 
     return () => {
       clearTimeout(timer);
