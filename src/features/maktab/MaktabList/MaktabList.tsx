@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { FaWhatsapp, FaMap } from "react-icons/fa";
 import InputSearchBox from "~/common/components/InputSearchBox";
 import { api } from "~/utils/api";
@@ -17,14 +17,17 @@ function MaktabList() {
   const openMaps = useMaktabMapsStore((state) => state.showModal);
 
   const [query, setQuery] = useState(typeof q === "string" ? q : q?.[0] ?? "");
-  const updateSearchPage = () => {
-    void router.push({
-      pathname: "/search",
-      query: {
-        q: query,
-      },
-    });
-  };
+  const updateSearchPage = useCallback(
+    (q: string) => {
+      void router.push({
+        pathname: "/search",
+        query: {
+          q,
+        },
+      });
+    },
+    [router]
+  );
 
   const list = api.maktab.findByContingent.useQuery(
     typeof q === "string" ? q : "",
@@ -37,6 +40,16 @@ function MaktabList() {
     setQuery(typeof q === "string" ? q : q?.[0] ?? "");
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      updateSearchPage(query);
+    }, 500);
+
+    return () => {
+      clearTimeout(timer);
+    };
+  }, [query, updateSearchPage]);
 
   return (
     <>
@@ -72,7 +85,7 @@ function MaktabList() {
         <form>
           <InputSearchBox
             onChangeText={setQuery}
-            onPressButton={updateSearchPage}
+            onPressButton={() => updateSearchPage(query)}
             value={query}
             isLoading={list.isLoading}
           />
