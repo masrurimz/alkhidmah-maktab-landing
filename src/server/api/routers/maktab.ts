@@ -1,3 +1,4 @@
+import { maktab } from "@prisma/client";
 import { TRPCError } from "@trpc/server";
 import { z } from "zod";
 
@@ -8,19 +9,25 @@ export const maktabRouter = createTRPCRouter({
     .input(
       z.object({
         query: z.string().optional(),
-        page: z.number(),
+        limit: z.number(),
+        cursor: z.string().nullish(),
+        skip: z.number().optional(),
       })
     )
-    .query(({ ctx, input }) => {
-      const take = 10;
-      const skip = input.page * take;
+    .query(async ({ ctx, input }) => {
+      const { limit, skip, cursor } = input;
 
+      let items: maktab[] = [];
       const query = input.query?.toLowerCase().trim();
 
       if (query) {
-        return ctx.prisma.maktab.findMany({
-          take,
-          skip,
+        items = await ctx.prisma.maktab.findMany({
+          take: limit + 1,
+          skip: skip,
+          cursor: cursor ? { id: cursor } : undefined,
+          orderBy: {
+            id: "asc",
+          },
           where: {
             OR: [
               {
@@ -44,12 +51,28 @@ export const maktabRouter = createTRPCRouter({
             ],
           },
         });
+      } else {
+        items = await ctx.prisma.maktab.findMany({
+          take: limit + 1,
+          skip: skip,
+          cursor: cursor ? { id: cursor } : undefined,
+          orderBy: {
+            id: "asc",
+          },
+        });
       }
 
-      return ctx.prisma.maktab.findMany({
-        take,
-        skip,
-      });
+      let nextCursor: typeof cursor | undefined = undefined;
+      if (items.length > limit) {
+        // return the last item from the array
+        // and also remove it from items array
+        const nextItem = items.pop();
+        nextCursor = nextItem?.id;
+      }
+      return {
+        items,
+        nextCursor,
+      };
     }),
   findByContingent: publicProcedure
     .input(z.string())

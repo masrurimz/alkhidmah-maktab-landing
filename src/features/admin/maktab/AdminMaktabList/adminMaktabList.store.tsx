@@ -2,6 +2,10 @@ import { create } from "zustand";
 interface AdminMaktabListState {
   selected: { [key: string]: boolean };
   handleChecklist: (id: string[]) => void;
+
+  page: number;
+  loadMore: () => void;
+  resetPage: () => void;
 }
 
 export const useAdminMaktabListStore = create<AdminMaktabListState>()(
@@ -21,5 +25,15 @@ export const useAdminMaktabListStore = create<AdminMaktabListState>()(
           selected: nextSelected,
         };
       }),
+
+    page: 1,
+    loadMore: () =>
+      set((state) => ({
+        page: state.page + 1,
+      })),
+    resetPage: () =>
+      set(() => ({
+        page: 1,
+      })),
   })
 );

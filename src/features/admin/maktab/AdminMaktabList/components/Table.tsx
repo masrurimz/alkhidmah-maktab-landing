@@ -1,5 +1,8 @@
 import { type maktab } from "@prisma/client";
+import { Button, Spinner } from "flowbite-react";
+import { api } from "~/utils/api";
 import { useAdminMaktabStore } from "../../adminMaktab.store";
+import useAdminMaktabListQuery from "../../hooks/useAdminMaktabListQuery";
 import { useAdminMaktabListStore } from "../adminMaktabList.store";
 import TableHeader from "./TableHeader";
 import TableRow from "./TableRow";
@@ -28,8 +31,10 @@ function Table(props: TableProps) {
     handleChecklist(allDataId);
   };
 
+  const { fetchNextPage, isFetchingNextPage } = useAdminMaktabListQuery();
+
   return (
-    <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
+    <div className="relative overflow-x-auto px-5 pb-5 shadow-md sm:rounded-lg">
       <TableHeader maktabData={data ?? []} />
       <table className="w-full text-left text-sm text-gray-500 dark:text-gray-400">
         <thead className="bg-gray-50 text-xs uppercase text-gray-700 dark:bg-gray-700 dark:text-gray-400">
@@ -85,6 +90,22 @@ function Table(props: TableProps) {
           ))}
         </tbody>
       </table>
+      <div className="mt-5 flex items-end justify-end self-end">
+        <Button
+          onClick={() => {
+            void fetchNextPage();
+          }}
+        >
+          {isFetchingNextPage ? (
+            <>
+              <Spinner />
+              Loading...
+            </>
+          ) : (
+            "Load More"
+          )}
+        </Button>
+      </div>
     </div>
   );
 }
