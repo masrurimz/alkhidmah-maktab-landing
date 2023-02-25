@@ -66,29 +66,6 @@ function MaktabList() {
         </button>
       </div>
       <div className="z-1 sticky top-0 bg-blue-50 px-5 py-3 shadow-sm">
-        <div className="flex flex-row items-center gap-2 pb-2">
-          <Link
-            href="/"
-            className="flex flex-1 flex-row items-center gap-1"
-            role="button"
-            aria-pressed="false"
-          >
-            <Image
-              src={Logo}
-              alt="Picture of the author"
-              width="32"
-              height="32"
-            />
-            <p className=" font-medium">Maktab Pusat HAF 2023</p>
-          </Link>
-          <button
-            className="flex items-center gap-2 rounded-full border border-blue-300 bg-blue-100 py-1 px-2 text-xs font-bold text-blue-700"
-            onClick={() => openMaps()}
-          >
-            Peta
-            <FaMap size={20} />
-          </button>
-        </div>
         <form>
           <InputSearchBox
             onChangeText={setQuery}
