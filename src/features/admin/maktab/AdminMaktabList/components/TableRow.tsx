@@ -3,6 +3,7 @@ import dayjs from "dayjs";
 import { Spinner } from "flowbite-react";
 import React from "react";
 import { api } from "~/utils/api";
+import { useAdminMaktabPrintStore } from "../../AdminMaktabPrint/adminMaktabPrint.store";
 
 type TTableRowProps = maktab & {
   onClickEdit: (data: maktab) => void;
@@ -30,6 +31,11 @@ function TableRow(props: TTableRowProps) {
       void utils.maktab.invalidate();
     },
   });
+
+  const openPrintDialog = useAdminMaktabPrintStore((s) => s.setPrintData);
+  const print = (data: maktab) => {
+    openPrintDialog(data);
+  };
 
   return (
     <tr className="border-b bg-white hover:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-600">
@@ -93,12 +99,14 @@ function TableRow(props: TTableRowProps) {
         )}
       </td>
       <td className="px-6 py-4">
-        <a
-          onClick={() => onClickEdit(props)}
+        <div
+          role="button"
+          aria-pressed="false"
+          onClick={() => print(props)}
           className="font-medium text-blue-600 hover:underline dark:text-blue-500"
         >
-          Edit data
-        </a>
+          Print
+        </div>
       </td>
     </tr>
   );
