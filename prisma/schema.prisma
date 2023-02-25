@@ -19,5 +19,7 @@ model maktab {
   maktabOwnerPhone           String
   sector                     String
 
+  checkInAt DateTime?
+
   @@index([contingentCoordinatorName, contingentAddress, contingentCoordinatorPhone])
 }
