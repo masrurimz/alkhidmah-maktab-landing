@@ -6,6 +6,9 @@ interface AdminMaktabListState {
   page: number;
   loadMore: () => void;
   resetPage: () => void;
+
+  query: string;
+  setQuery: (q: string) => void;
 }
 
 export const useAdminMaktabListStore = create<AdminMaktabListState>()(
@@ -34,6 +37,12 @@ export const useAdminMaktabListStore = create<AdminMaktabListState>()(
     resetPage: () =>
       set(() => ({
         page: 1,
+      })),
+
+    query: "",
+    setQuery: (s) =>
+      set(() => ({
+        query: s,
       })),
   })
 );

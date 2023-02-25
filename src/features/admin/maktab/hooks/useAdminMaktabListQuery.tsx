@@ -1,19 +1,14 @@
+import { useEffect, useState } from "react";
 import { api } from "~/utils/api";
 import { useAdminMaktabListStore } from "../AdminMaktabList/adminMaktabList.store";
 
 function useAdminMaktabListQuery() {
-  // const page = useAdminMaktabListStore((s) => s.page);
-  // const list = api.maktab.findAll.useQuery({
-  //   page,
-  // });
-  // const loadMore = useAdminMaktabListStore((s) => s.loadMore);
-
-  // api.maktab.findAll.useInfiniteQuery()
+  const searchQuery = useAdminMaktabListStore((s) => s.query);
 
   const { data, fetchNextPage, isLoading, isFetchingNextPage } =
     api.maktab.findAll.useInfiniteQuery(
       {
-        // todo: make this limit depending on the screen size
+        query: searchQuery,
         limit: 15,
       },
       {
@@ -21,11 +16,26 @@ function useAdminMaktabListQuery() {
       }
     );
 
+  const [query, setQuery] = useState("");
+  const setSearchQuery = useAdminMaktabListStore((s) => s.setQuery);
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setSearchQuery(query);
+    }, 500);
+
+    return () => {
+      clearTimeout(timer);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [query]);
+
   return {
     data,
     fetchNextPage,
     isLoading,
     isFetchingNextPage,
+    setQuery,
+    query,
   };
 }
 
