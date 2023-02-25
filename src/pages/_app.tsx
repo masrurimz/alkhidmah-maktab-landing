@@ -6,6 +6,7 @@ import "~/styles/globals.css";
 import MaktabHelp from "~/features/maktab/MaktabHelp/MaktabHelp";
 import MaktabMaps from "~/features/maktab/MaktabMaps/MaktabMaps";
 import MainHeader from "~/common/components/navigation/MainHeader";
+import MaktabLive from "~/features/maktab/MaktabLive/MaktabLive";
 
 const MyApp: AppType = ({ Component, pageProps }) => {
   return (
@@ -14,6 +15,7 @@ const MyApp: AppType = ({ Component, pageProps }) => {
       <Component {...pageProps} />
       <MaktabHelp />
       <MaktabMaps />
+      <MaktabLive />
     </>
   );
 };
