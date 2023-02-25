@@ -1,4 +1,4 @@
-import React from "react";
+import { Suspense } from "react";
 import ReactPlayer from "react-player";
 import { useMaktabLiveStore } from "./maktabLive.store";
 
@@ -49,14 +49,16 @@ function MaktabLive() {
           </div>
           {/* <!-- Modal body --> */}
           <div className="flex h-full flex-1 flex-col items-center justify-center p-6">
-            <ReactPlayer
-              url="https://www.youtube.com/watch?v=t1zeInCd2GU"
-              playing
-              muted
-              controls={false}
-              width="100%"
-              height="100%"
-            />
+            <Suspense fallback={<></>}>
+              <ReactPlayer
+                url="https://www.youtube.com/watch?v=t1zeInCd2GU"
+                playing
+                muted
+                controls={false}
+                width="100%"
+                height="100%"
+              />
+            </Suspense>
           </div>
         </div>
       </div>

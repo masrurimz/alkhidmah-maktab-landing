@@ -4,9 +4,12 @@ import { Spinner } from "flowbite-react";
 import React from "react";
 import { api } from "~/utils/api";
 import { useAdminMaktabPrintStore } from "../../AdminMaktabPrint/adminMaktabPrint.store";
+import { useAdminMaktabListStore } from "../adminMaktabList.store";
 
 type TTableRowProps = maktab & {
   onClickEdit: (data: maktab) => void;
+  isSelected: boolean;
+  onChecklist?: (data: maktab) => void;
 };
 
 function TableRow(props: TTableRowProps) {
@@ -21,6 +24,8 @@ function TableRow(props: TTableRowProps) {
     maktabOwnerPhone,
     sector,
     onClickEdit,
+    onChecklist = () => null,
+    isSelected,
     checkInAt,
     id,
   } = props;
@@ -34,7 +39,7 @@ function TableRow(props: TTableRowProps) {
 
   const openPrintDialog = useAdminMaktabPrintStore((s) => s.setPrintData);
   const print = (data: maktab) => {
-    openPrintDialog(data);
+    openPrintDialog([data]);
   };
 
   return (
@@ -45,6 +50,8 @@ function TableRow(props: TTableRowProps) {
             id="checkbox-table-search-1"
             type="checkbox"
             className="h-4 w-4 rounded border-gray-300 bg-gray-100 text-blue-600 focus:ring-2 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-blue-600 dark:focus:ring-offset-gray-800"
+            checked={isSelected}
+            onChange={() => onChecklist(props)}
           />
           <label htmlFor="checkbox-table-search-1" className="sr-only">
             checkbox

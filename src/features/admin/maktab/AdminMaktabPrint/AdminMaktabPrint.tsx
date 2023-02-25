@@ -1,8 +1,9 @@
-import { Button, Label, TextInput } from "flowbite-react";
-import React, { useRef } from "react";
+import { Button } from "flowbite-react";
+import { useRef } from "react";
 import { useReactToPrint } from "react-to-print";
 import { useAdminMaktabPrintStore } from "./adminMaktabPrint.store";
 import MaktabData from "./components/MaktabData";
+import PrintComponent from "./components/PrintComponent";
 
 function AdminMaktabPrint() {
   const data = useAdminMaktabPrintStore((s) => s.data);
@@ -27,7 +28,7 @@ function AdminMaktabPrint() {
         hideModal();
       }}
     >
-      <div className="relative h-auto w-full max-w-4xl">
+      <div className="relative w-full max-w-4xl">
         <div className="relative w-full rounded-lg bg-white shadow dark:bg-gray-700 md:mt-20">
           <Button
             className="absolute top-3 right-14"
@@ -63,61 +64,16 @@ function AdminMaktabPrint() {
             </h3>
           </div>
           {/* <!-- Modal body --> */}
-          <div className="flex flex-col items-stretch p-6" ref={componentRef}>
-            <h1 className="pb-5 text-lg font-bold">Lokasi Maktab</h1>
-            <table className="w-full text-left text-base text-gray-500 dark:text-gray-400">
-              <thead className="bg-gray-50 text-base uppercase text-gray-700 dark:bg-gray-700 dark:text-gray-400">
-                <th scope="col" className="px-6 py-3">
-                  Rombongan
-                </th>
-                <th />
-                <th scope="col" className="px-6 py-3">
-                  Maktab
-                </th>
-                <th />
-              </thead>
-              <tbody>
-                <tr>
-                  <MaktabData label="Asal" value={data?.contingentAddress} />
-                  <MaktabData
-                    label="Alamat Maktab"
-                    value={data?.maktabAddress}
-                  />
-                </tr>
-                <tr>
-                  <MaktabData
-                    label="Koordinator"
-                    value={data?.contingentCoordinatorName}
-                  />
-                  <MaktabData
-                    label="Tuan Rumah Maktab"
-                    value={data?.maktabOwnerName}
-                  />
-                </tr>
-                <tr>
-                  <MaktabData
-                    label="No. Telp Koor"
-                    value={data?.contingentCoordinatorPhone}
-                  />
-                  <MaktabData
-                    label="No. Telp Tuan Rumah"
-                    value={data?.contingentCoordinatorPhone}
-                  />
-                </tr>
-                <tr>
-                  <MaktabData
-                    label="Jumlah Rombongan"
-                    value={data?.contingentCount}
-                  />
-                  <MaktabData
-                    label="Kapasitas Maktab"
-                    value={data?.maktabCapacity}
-                  />
-                </tr>
-              </tbody>
-            </table>
+          <div
+            className="flex max-h-[80vh] flex-col items-stretch overflow-scroll p-6"
+            ref={componentRef}
+          >
+            <PrintComponent data={data ?? []} />
           </div>
         </div>
+      </div>
+      <div style={{ display: "none" }}>
+        <PrintComponent data={data ?? []} ref={componentRef} />
       </div>
     </div>
   );

@@ -1,6 +1,30 @@
-import React from "react";
+import { maktab } from "@prisma/client";
+import React, { useState } from "react";
+import { useAdminMaktabPrintStore } from "../../AdminMaktabPrint/adminMaktabPrint.store";
+import { useAdminMaktabListStore } from "../adminMaktabList.store";
 
-function TableHeader() {
+interface TableHeaderProps {
+  maktabData: maktab[];
+}
+
+function TableHeader(props: TableHeaderProps) {
+  const { maktabData } = props;
+
+  const [isActionVisible, setIsActionVisible] = useState(false);
+
+  const selected = useAdminMaktabListStore((s) => s.selected);
+  const selectedCount = Object.values(selected).reduce(
+    (sum, val) => sum + Number(val),
+    0
+  );
+
+  const setPrintData = useAdminMaktabPrintStore((s) => s.setPrintData);
+  const print = () => {
+    const printData = maktabData.filter((m) => selected[m.id]);
+
+    setPrintData(printData);
+  };
+
   return (
     <div className="flex items-center justify-between bg-white py-4 px-5 dark:bg-gray-800">
       <div>
@@ -9,9 +33,10 @@ function TableHeader() {
           data-dropdown-toggle="dropdownAction"
           className="inline-flex items-center rounded-lg border border-gray-300 bg-white px-3 py-1.5 text-sm font-medium text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-400 dark:hover:border-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-700"
           type="button"
+          onClick={() => setIsActionVisible((v) => !v)}
         >
           <span className="sr-only">Action button</span>
-          Action
+          Action {selectedCount ? `${selectedCount} selected` : ""}
           <svg
             className="ml-2 h-3 w-3"
             aria-hidden="true"
@@ -25,51 +50,47 @@ function TableHeader() {
               strokeLinejoin="round"
               strokeWidth="2"
               d="M19 9l-7 7-7-7"
-            ></path>
+            />
           </svg>
         </button>
         {/* <!-- Dropdown menu --> */}
         <div
           id="dropdownAction"
-          className="z-10 hidden w-44 divide-y divide-gray-100 rounded-lg bg-white shadow dark:divide-gray-600 dark:bg-gray-700"
+          className={`z-10 w-44 divide-y divide-gray-100 rounded-lg bg-white shadow dark:divide-gray-600 dark:bg-gray-700 ${
+            isActionVisible ? "" : "hidden"
+          }`}
         >
           <ul
             className="py-1 text-sm text-gray-700 dark:text-gray-200"
             aria-labelledby="dropdownActionButton"
           >
             <li>
+              <div
+                role="button"
+                aria-pressed="false"
+                className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                onClick={() => print(selected)}
+              >
+                Print
+              </div>
+            </li>
+            {/* <li>
               <a
                 href="#"
                 className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
               >
-                Reward
+                CheckIn
               </a>
-            </li>
-            <li>
-              <a
-                href="#"
-                className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-              >
-                Promote
-              </a>
-            </li>
-            <li>
-              <a
-                href="#"
-                className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-              >
-                Activate account
-              </a>
-            </li>
+            </li> */}
           </ul>
-          <div className="py-1">
+          {/* <div className="py-1">
             <a
               href="#"
               className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-600 dark:hover:text-white"
             >
               Delete User
             </a>
-          </div>
+          </div> */}
         </div>
       </div>
       <label htmlFor="table-search" className="sr-only">
