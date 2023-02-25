@@ -1,5 +1,8 @@
 import { type maktab } from "@prisma/client";
+import dayjs from "dayjs";
+import { Spinner } from "flowbite-react";
 import React from "react";
+import { api } from "~/utils/api";
 
 type TTableRowProps = maktab & {
   onClickEdit: (data: maktab) => void;
@@ -18,7 +21,15 @@ function TableRow(props: TTableRowProps) {
     sector,
     onClickEdit,
     checkInAt,
+    id,
   } = props;
+
+  const utils = api.useContext();
+  const checkIn = api.maktab.checkinById.useMutation({
+    onSuccess() {
+      void utils.maktab.invalidate();
+    },
+  });
 
   return (
     <tr className="border-b bg-white hover:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-600">
@@ -58,10 +69,28 @@ function TableRow(props: TTableRowProps) {
       <td className="px-6 py-4">{sector}</td>
 
       <td className="px-6 py-4">
-        <div className="flex items-center">
-          <div className="mr-2 h-2.5 w-2.5 rounded-full bg-green-500"></div>{" "}
-          Online
-        </div>
+        {checkInAt instanceof Date ? (
+          <div className="flex items-center">
+            <div className="mr-2 h-3 w-2.5 rounded-full bg-green-500"></div>{" "}
+            {dayjs(checkInAt).format("DD MMM hh:mm")}
+          </div>
+        ) : (
+          <div
+            className="font-medium text-blue-600 hover:underline dark:text-blue-500"
+            role="button"
+            aria-pressed="false"
+            onClick={() => checkIn.mutate(id)}
+          >
+            {checkIn.isLoading ? (
+              <>
+                <Spinner size="sm" />
+                Checking in...
+              </>
+            ) : (
+              "Check In"
+            )}
+          </div>
+        )}
       </td>
       <td className="px-6 py-4">
         <a

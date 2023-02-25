@@ -48,7 +48,7 @@ function Table(props: TableProps) {
             </th>
 
             <th scope="col" className="px-6 py-3">
-              Status
+              Check In
             </th>
             <th scope="col" className="px-6 py-3">
               Action

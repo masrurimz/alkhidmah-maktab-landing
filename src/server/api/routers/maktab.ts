@@ -97,12 +97,13 @@ export const maktabRouter = createTRPCRouter({
         });
       }
 
+      const { id, checkInAt, ...data } = maktab;
       return ctx.prisma.maktab.update({
         where: {
           id: input,
         },
         data: {
-          ...maktab,
+          ...data,
           checkInAt: new Date(),
         },
       });
